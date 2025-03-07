@@ -16,32 +16,47 @@ function CvTable({ data }) {
   };
   console.log(modalData);
 
-  const generatePDF = (item) => {
+  const generatePDF = async (item) => {
     const doc = new jsPDF();
-
     doc.text("My Cv Information", 20, 10);
-
     let yPosition = 20;
 
-    const img = new Image();
-    img.src = item.imgUrl;
-    img.onload = function () {
-      doc.addImage(img, "JPEG", 10, yPosition, 50, 50);
-      let imageYPosition = yPosition + 10;
-      yPosition += 10;
+    if (item.imgUrl) { 
+        try {
+            const imageResponse = await fetch(item.imgUrl);
+            const imageBlob = await imageResponse.blob();
+            const reader = new FileReader();
 
-      doc.text(`Full Name: ${item.fullName}`, 80, imageYPosition);
-      yPosition += 10;
-      doc.text(`Email: ${item.email}`, 80, yPosition);
-      yPosition += 10;
-      doc.text(`Phone: ${item.phoneNumber}`, 80, yPosition);
-      yPosition += 10;
-      doc.text(`Experience: ${item.experience}`, 80, yPosition);
-      yPosition += 15;
+            reader.onloadend = function () {
+                doc.addImage(reader.result, "JPEG", 10, yPosition, 50, 50);
+                yPosition += 20;
+                addTextAndSave(doc, item, yPosition);
+            };
 
-      doc.save("myCv.pdf");
-    };
-  };
+            reader.readAsDataURL(imageBlob);
+            return;
+        } catch {
+            console.warn("Image not loaded, continuing without it.");
+        }
+    }
+
+    addTextAndSave(doc, item, yPosition);
+};
+
+const addTextAndSave = (doc, item, yPosition) => {
+    doc.text(`Full Name: ${item.fullName}`, 80, yPosition);
+    yPosition += 10;
+    doc.text(`Email: ${item.email}`, 80, yPosition);
+    yPosition += 10;
+    doc.text(`Phone: ${item.phoneNumber}`, 80, yPosition);
+    yPosition += 10;
+    doc.text(`Experience: ${item.experience}`, 80, yPosition);
+    yPosition += 15;
+
+    doc.save("myCv.pdf");
+};
+
+  
 
   return (
     <div>
