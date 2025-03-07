@@ -15,35 +15,34 @@ function CvTable({ data }) {
     setModalData(info);
   };
   console.log(modalData);
-
   const generatePDF = async (item) => {
     const doc = new jsPDF();
     doc.text("My Cv Information", 20, 10);
     let yPosition = 20;
 
-    if (item.imgUrl) { 
-        try {
-            const imageResponse = await fetch(item.imgUrl);
-            const imageBlob = await imageResponse.blob();
-            const reader = new FileReader();
+    if (item.imgUrl) {
+      try {
+        const imageResponse = await fetch(item.imgUrl);
+        const imageBlob = await imageResponse.blob();
+        const reader = new FileReader();
 
-            reader.onloadend = function () {
-                doc.addImage(reader.result, "JPEG", 10, yPosition, 50, 50);
-                yPosition += 20;
-                addTextAndSave(doc, item, yPosition);
-            };
+        reader.onloadend = function () {
+          doc.addImage(reader.result, "JPEG", 10, yPosition, 50, 50);
+          yPosition += 20;
+          addTextAndSave(doc, item, yPosition);
+        };
 
-            reader.readAsDataURL(imageBlob);
-            return;
-        } catch {
-            console.warn("Image not loaded, continuing without it.");
-        }
+        reader.readAsDataURL(imageBlob);
+        return;
+      } catch {
+        console.warn("Image not loaded, continuing without it.");
+      }
     }
 
     addTextAndSave(doc, item, yPosition);
-};
+  };
 
-const addTextAndSave = (doc, item, yPosition) => {
+  const addTextAndSave = (doc, item, yPosition) => {
     doc.text(`Full Name: ${item.fullName}`, 80, yPosition);
     yPosition += 10;
     doc.text(`Email: ${item.email}`, 80, yPosition);
@@ -54,10 +53,7 @@ const addTextAndSave = (doc, item, yPosition) => {
     yPosition += 15;
 
     doc.save("myCv.pdf");
-};
-
-  
-
+  };
   return (
     <div>
       {data.length > 0 && (

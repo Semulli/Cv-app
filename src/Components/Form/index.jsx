@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import style from "./form.module.css";
 import Button from "react-bootstrap/Button";
 import CvTable from "../FormTable";
-import { email, phoneNum } from "../Regex";
+import { email, phoneNum, checkUrl} from "../Regex";
 
 function CvForm() {
   const initialValues = {
@@ -57,8 +57,8 @@ function CvForm() {
       newErrors.experience = "Experience is required.";
     }
 
-    if (!form.imgUrl.trim()) {
-      newErrors.imgUrl = "Image URL is required.";
+    if (!checkUrl(form.imgUrl)) {
+      newErrors.imgUrl = "Wrong format please enter valid url";
     }
 
     setError(newErrors);
