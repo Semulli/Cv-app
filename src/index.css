@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  overflow-x: hidden;
+  background: linear-gradient(-45deg, #1b1b2f, #162447, #1f4068, #346902);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: particleMove 5s linear infinite;
+}
+
+/* Hissəciklərin yuxarı-aşağı hərəkət etməsi */
+@keyframes particleMove {
+  0% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+}
+
+/* Fərqli hissəciklərin təsadüfi yerlərdə olması */
+.particle:nth-child(1) {
+  top: 20%;
+  left: 30%;
+  animation-duration: 4s;
+}
+.particle:nth-child(2) {
+  top: 50%;
+  left: 70%;
+  animation-duration: 3.5s;
+}
+.particle:nth-child(3) {
+  top: 80%;
+  left: 40%;
+  animation-duration: 3s;
+}
+.particle:nth-child(4) {
+  top: 10%;
+  left: 80%;
+  animation-duration: 4.5s;
+}
+.particle:nth-child(5) {
+  top: 60%;
+  left: 20%;
+  animation-duration: 5s;
+}
