@@ -61,8 +61,7 @@ function CvForm() {
       newErrors.imgUrl = "Wrong format please enter valid url";
     }
 
-    setError(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return
   };
 
   const handleSubmit = (e) => {
@@ -72,6 +71,7 @@ function CvForm() {
       setData((prevData) => [...prevData, form]);
       setForm(initialValues);
     }
+   
   };
 
   return (
@@ -117,7 +117,7 @@ function CvForm() {
 
           <Form.Group className="mb-3" controlId="formGroupUrl">
             <Form.Control
-              type="text"
+              type="url"
               placeholder="Enter image URL"
               onChange={inputChange}
               name="imgUrl"

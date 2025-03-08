@@ -5,14 +5,13 @@ export function phoneNum(value) {
 }
 
 export function email(value) {
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const emailRegex =
+    /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
 
   return emailRegex.test(value);
 }
 
 export function checkUrl(value) {
-  const imgUrlRegex =
-    /^(https?:\/\/.*\.(?:jpg|jpeg|png|gif|bmp|webp|svg|tiff|ico)(\?.*)?)$/i;
-
-  return imgUrlRegex.test(value);
+ const imgUrlRegex =/^https?:\/\//;
+  return imgUrlRegex.test(value.trim());
 }

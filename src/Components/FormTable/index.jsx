@@ -24,22 +24,24 @@ function CvTable({ data }) {
       try {
         const imageResponse = await fetch(item.imgUrl);
         const imageBlob = await imageResponse.blob();
+
         const reader = new FileReader();
 
         reader.onloadend = function () {
-          doc.addImage(reader.result, "JPEG", 10, yPosition, 50, 50);
+          const imgData = reader.result;
+          doc.addImage(imgData, "JPEG", 10, yPosition, 50, 50);
           yPosition += 20;
           addTextAndSave(doc, item, yPosition);
         };
 
         reader.readAsDataURL(imageBlob);
-        return;
-      } catch {
-        console.warn("Image not loaded, continuing without it.");
+      } catch (error) {
+        console.warn("Şəkil yüklənərkən xəta baş verdi:", error);
+        addTextAndSave(doc, item, yPosition);
       }
+    } else {
+      addTextAndSave(doc, item, yPosition);
     }
-
-    addTextAndSave(doc, item, yPosition);
   };
 
   const addTextAndSave = (doc, item, yPosition) => {
