@@ -61,7 +61,9 @@ function CvForm() {
       newErrors.imgUrl = "Wrong format please enter valid url";
     }
 
-    return
+    setError(newErrors); 
+    console.log("Validation errors:", newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
@@ -70,9 +72,9 @@ function CvForm() {
     if (validationForm()) {
       setData((prevData) => [...prevData, form]);
       setForm(initialValues);
-    }
+     
    
-  };
+  }}
 
   return (
     <>

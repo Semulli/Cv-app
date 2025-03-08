@@ -5,13 +5,12 @@ export function phoneNum(value) {
 }
 
 export function email(value) {
-  const emailRegex =
-    /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   return emailRegex.test(value);
 }
 
 export function checkUrl(value) {
- const imgUrlRegex =/^https?:\/\//;
+  const imgUrlRegex = /^https?:\/\//;
   return imgUrlRegex.test(value.trim());
 }
