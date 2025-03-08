@@ -11,7 +11,8 @@ export function email(value) {
 }
 
 export function checkUrl(value) {
-  const imgUrlRegex = /^(https?:\/\/)(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/.*\.(?:jpg|jpeg|png|gif|bmp|webp))$/i;
+  const imgUrlRegex =
+    /^(https?:\/\/.*\.(?:jpg|jpeg|png|gif|bmp|webp|svg|tiff|ico)(\?.*)?)$/i;
 
   return imgUrlRegex.test(value);
 }
